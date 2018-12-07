@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SoporteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Categoria" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Incidencias" Relationship="Self.FK_Incidencias_Categorias" FromRole="Categorias" ToRole="Incidencias" />
+  </EntityType>
+  <EntityType Name="Grados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Grado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Solicitudes" Relationship="SoporteModel.FK_Solicitudes_Grados" FromRole="Grados" ToRole="Solicitudes" />
+  </EntityType>
+  <EntityType Name="Incidencias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoriaId" Type="Int32" Nullable="false" />
+    <Property Name="Incidencia" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Categorias" Relationship="Self.FK_Incidencias_Categorias" FromRole="Incidencias" ToRole="Categorias" />
+    <NavigationProperty Name="Solicitudes" Relationship="SoporteModel.FK_Solicitudes_Incidencias" FromRole="Incidencias" ToRole="Solicitudes" />
+  </EntityType>
+  <Association Name="FK_Incidencias_Categorias">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="Incidencias" Type="Self.Incidencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Incidencias">
+        <PropertyRef Name="CategoriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SoporteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+    <EntitySet Name="Grados" EntityType="Self.Grados" />
+    <EntitySet Name="Incidencias" EntityType="Self.Incidencias" />
+    <AssociationSet Name="FK_Incidencias_Categorias" Association="Self.FK_Incidencias_Categorias">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Incidencias" EntitySet="Incidencias" />
+    </AssociationSet>
+    <EntitySet Name="Solicitudes" EntityType="SoporteModel.Solicitudes" />
+    <AssociationSet Name="FK_Solicitudes_Grados" Association="SoporteModel.FK_Solicitudes_Grados">
+      <End Role="Grados" EntitySet="Grados" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitudes_Incidencias" Association="SoporteModel.FK_Solicitudes_Incidencias">
+      <End Role="Incidencias" EntitySet="Incidencias" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Solicitudes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IncidenciaId" Type="Int32" Nullable="false" />
+    <Property Name="GradoId" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Comentario" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Grados" Relationship="SoporteModel.FK_Solicitudes_Grados" FromRole="Solicitudes" ToRole="Grados" />
+    <NavigationProperty Name="Incidencias" Relationship="SoporteModel.FK_Solicitudes_Incidencias" FromRole="Solicitudes" ToRole="Incidencias" />
+  </EntityType>
+  <Association Name="FK_Solicitudes_Grados">
+    <End Type="SoporteModel.Grados" Role="Grados" Multiplicity="1" />
+    <End Type="SoporteModel.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grados">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="GradoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitudes_Incidencias">
+    <End Type="SoporteModel.Incidencias" Role="Incidencias" Multiplicity="1" />
+    <End Type="SoporteModel.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Incidencias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="IncidenciaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

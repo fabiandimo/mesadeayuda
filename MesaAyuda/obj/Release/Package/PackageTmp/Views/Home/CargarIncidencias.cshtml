@@ -1,0 +1,4 @@
+﻿@model MesaAyuda.Models.Solicitudes
+
+Seleccione la Incidencia<br />
+@Html.DropDownListFor(model => model.IncidenciaId, new SelectList(ViewBag.Incidencias, "Id", "Incidencia", null), "Seleccione...", new { Class = "form-control", required = "required" })

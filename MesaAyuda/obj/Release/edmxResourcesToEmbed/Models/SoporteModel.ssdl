@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SoporteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Categoria" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="EsActivo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Grados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Grado" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="EsActivo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Incidencias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoriaId" Type="int" Nullable="false" />
+    <Property Name="Incidencia" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="EsActivo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Solicitudes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IncidenciaId" Type="int" Nullable="false" />
+    <Property Name="GradoId" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Comentario" Type="ntext" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Incidencias_Categorias">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="Incidencias" Type="Self.Incidencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Incidencias">
+        <PropertyRef Name="CategoriaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitudes_Grados">
+    <End Role="Grados" Type="Self.Grados" Multiplicity="1" />
+    <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grados">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="GradoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitudes_Incidencias">
+    <End Role="Incidencias" Type="Self.Incidencias" Multiplicity="1" />
+    <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Incidencias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="IncidenciaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SoporteModelStoreContainer">
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grados" EntityType="Self.Grados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Incidencias" EntityType="Self.Incidencias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Solicitudes" EntityType="Self.Solicitudes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Incidencias_Categorias" Association="Self.FK_Incidencias_Categorias">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Incidencias" EntitySet="Incidencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitudes_Grados" Association="Self.FK_Solicitudes_Grados">
+      <End Role="Grados" EntitySet="Grados" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitudes_Incidencias" Association="Self.FK_Solicitudes_Incidencias">
+      <End Role="Incidencias" EntitySet="Incidencias" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

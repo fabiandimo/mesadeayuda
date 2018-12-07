@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MesaAyuda.Models.Solicitudes>
+
+@{
+    ViewBag.Title = "Solicitudes";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Solicitudes</h2>
+
+<table class="table table-bordered table-condensed table-striped">
+    <tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Id)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Fecha)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Grados.Grado)
+		</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Correo)
+        </th>
+		<th>
+			@Html.DisplayNameFor(model => model.Incidencias.Categorias.Categoria)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Incidencias.Incidencia)
+		</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+		<td>
+			@Html.ActionLink(item.Id.ToString(), "Solicitud", new { id = item.Id })
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Fecha)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Grados.Grado)
+		</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Correo)
+        </td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Incidencias.Categorias.Categoria)
+		</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Incidencias.Incidencia)
+        </td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Comentario)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Estado)
+		</td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,45 @@
+﻿@model MesaAyuda.Models.Solicitudes
+
+@{
+    ViewBag.Title = "Solicitud";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div>
+    <h4>Solicitud No. @Model.Id</h4>
+    <hr />
+    <div class="row">
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Fecha)<br />
+			@Html.DisplayFor(model => model.Fecha)
+		</div>
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Grados.Grado)<br />
+			@Html.DisplayFor(model => model.Grados.Grado)
+		</div>
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Nombre)<br />
+			@Html.DisplayFor(model => model.Nombre)
+		</div>
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Correo)<br />
+			@Html.DisplayFor(model => model.Correo)
+		</div>
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Incidencias.Categorias.Categoria)<br />
+			@Html.DisplayFor(model => model.Incidencias.Categorias.Categoria)
+		</div>
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Incidencias.Incidencia)<br />
+			@Html.DisplayFor(model => model.Incidencias.Incidencia)
+		</div>
+		<div class="col-sm-4 form-group">
+			@Html.DisplayNameFor(model => model.Estado)<br />
+			@Html.DisplayFor(model => model.Estado)
+		</div>
+		<div class="col-sm-12 form-group">
+			@Html.DisplayNameFor(model => model.Comentario)<br />
+			@Html.DisplayFor(model => model.Comentario)
+		</div>
+	</div>
+</div>

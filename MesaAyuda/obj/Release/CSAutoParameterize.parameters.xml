@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="SoporteEntities-Web.config Connection String" description="SoporteEntities Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="metadata=res://*/Models.SoporteModel.csdl|res://*/Models.SoporteModel.ssdl|res://*/Models.SoporteModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=COINGC6_03\SQLEXPRESS;initial catalog=Soporte;persist security info=True;user id=sa;password=S0p0rt3_2017;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="I:\\JUlian\ Prado\\MAyuda\\MesaAyuda\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SoporteEntities']/@connectionString" />
+  </parameter>
+</parameters>

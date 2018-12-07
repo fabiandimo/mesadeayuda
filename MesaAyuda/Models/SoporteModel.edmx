@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SoporteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Grado" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Incidencias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoriaId" Type="int" Nullable="false" />
+          <Property Name="Incidencia" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="EsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Solicitudes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IncidenciaId" Type="int" Nullable="false" />
+          <Property Name="GradoId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Comentario" Type="ntext" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Incidencias_Categorias">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="Incidencias" Type="Self.Incidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Incidencias">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitudes_Grados">
+          <End Role="Grados" Type="Self.Grados" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="GradoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitudes_Incidencias">
+          <End Role="Incidencias" Type="Self.Incidencias" Multiplicity="1" />
+          <End Role="Solicitudes" Type="Self.Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Incidencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="IncidenciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SoporteModelStoreContainer">
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grados" EntityType="Self.Grados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Incidencias" EntityType="Self.Incidencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitudes" EntityType="Self.Solicitudes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Incidencias_Categorias" Association="Self.FK_Incidencias_Categorias">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Incidencias" EntitySet="Incidencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitudes_Grados" Association="Self.FK_Solicitudes_Grados">
+            <End Role="Grados" EntitySet="Grados" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitudes_Incidencias" Association="Self.FK_Solicitudes_Incidencias">
+            <End Role="Incidencias" EntitySet="Incidencias" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SoporteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Categoria" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Incidencias" Relationship="Self.FK_Incidencias_Categorias" FromRole="Categorias" ToRole="Incidencias" />
+        </EntityType>
+        <EntityType Name="Grados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Grado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Solicitudes" Relationship="SoporteModel.FK_Solicitudes_Grados" FromRole="Grados" ToRole="Solicitudes" />
+        </EntityType>
+        <EntityType Name="Incidencias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoriaId" Type="Int32" Nullable="false" />
+          <Property Name="Incidencia" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Categorias" Relationship="Self.FK_Incidencias_Categorias" FromRole="Incidencias" ToRole="Categorias" />
+          <NavigationProperty Name="Solicitudes" Relationship="SoporteModel.FK_Solicitudes_Incidencias" FromRole="Incidencias" ToRole="Solicitudes" />
+        </EntityType>
+        <Association Name="FK_Incidencias_Categorias">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="Incidencias" Type="Self.Incidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Incidencias">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SoporteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+          <EntitySet Name="Grados" EntityType="Self.Grados" />
+          <EntitySet Name="Incidencias" EntityType="Self.Incidencias" />
+          <AssociationSet Name="FK_Incidencias_Categorias" Association="Self.FK_Incidencias_Categorias">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Incidencias" EntitySet="Incidencias" />
+          </AssociationSet>
+          <EntitySet Name="Solicitudes" EntityType="SoporteModel.Solicitudes" />
+          <AssociationSet Name="FK_Solicitudes_Grados" Association="SoporteModel.FK_Solicitudes_Grados">
+            <End Role="Grados" EntitySet="Grados" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitudes_Incidencias" Association="SoporteModel.FK_Solicitudes_Incidencias">
+            <End Role="Incidencias" EntitySet="Incidencias" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Solicitudes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IncidenciaId" Type="Int32" Nullable="false" />
+          <Property Name="GradoId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Comentario" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Grados" Relationship="SoporteModel.FK_Solicitudes_Grados" FromRole="Solicitudes" ToRole="Grados" />
+          <NavigationProperty Name="Incidencias" Relationship="SoporteModel.FK_Solicitudes_Incidencias" FromRole="Solicitudes" ToRole="Incidencias" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Solicitudes_Grados">
+          <End Type="SoporteModel.Grados" Role="Grados" Multiplicity="1" />
+          <End Type="SoporteModel.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="GradoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitudes_Incidencias">
+          <End Type="SoporteModel.Incidencias" Role="Incidencias" Multiplicity="1" />
+          <End Type="SoporteModel.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Incidencias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitudes">
+              <PropertyRef Name="IncidenciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SoporteModelStoreContainer" CdmEntityContainer="SoporteEntities">
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="IsTypeOf(SoporteModel.Categorias)">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grados">
+      <EntityTypeMapping TypeName="IsTypeOf(SoporteModel.Grados)">
+        <MappingFragment StoreEntitySet="Grados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Grado" ColumnName="Grado" />
+          <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Incidencias">
+      <EntityTypeMapping TypeName="IsTypeOf(SoporteModel.Incidencias)">
+        <MappingFragment StoreEntitySet="Incidencias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+          <ScalarProperty Name="Incidencia" ColumnName="Incidencia" />
+          <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="Solicitudes">
+            <EntityTypeMapping TypeName="SoporteModel.Solicitudes">
+              <MappingFragment StoreEntitySet="Solicitudes">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="GradoId" ColumnName="GradoId" />
+                <ScalarProperty Name="IncidenciaId" ColumnName="IncidenciaId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

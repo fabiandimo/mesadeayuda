@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SoporteModelStoreContainer" CdmEntityContainer="SoporteEntities">
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="IsTypeOf(SoporteModel.Categorias)">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grados">
+      <EntityTypeMapping TypeName="IsTypeOf(SoporteModel.Grados)">
+        <MappingFragment StoreEntitySet="Grados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Grado" ColumnName="Grado" />
+          <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Incidencias">
+      <EntityTypeMapping TypeName="IsTypeOf(SoporteModel.Incidencias)">
+        <MappingFragment StoreEntitySet="Incidencias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+          <ScalarProperty Name="Incidencia" ColumnName="Incidencia" />
+          <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solicitudes">
+      <EntityTypeMapping TypeName="SoporteModel.Solicitudes">
+        <MappingFragment StoreEntitySet="Solicitudes">
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="GradoId" ColumnName="GradoId" />
+          <ScalarProperty Name="IncidenciaId" ColumnName="IncidenciaId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
